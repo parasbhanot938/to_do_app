@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app/bloc/login/login_bloc.dart';
 import 'package:to_do_app/bloc/signup/signup_bloc.dart';
 import 'package:to_do_app/constants/app_colors.dart';
+import 'package:to_do_app/constants/app_strings.dart';
 import 'package:to_do_app/ui/add_todo_screen.dart';
 import 'package:to_do_app/ui/login_screen.dart';
 import 'package:to_do_app/widgets/common_button.dart';
@@ -23,7 +24,7 @@ class SignupScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is ShowMessageActionState) {
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('User Already Exists!, Please sign in to continue'),
+              content: Text(AppStrings.userAlreadyExistsPleaseSignIn),
               backgroundColor: AppColors.appColor,
             ));
           } else if (state is NavigateToAddTodoActionState) {
@@ -51,7 +52,7 @@ class SignupScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Welcome Onboard!',
+                    AppStrings.welcomeOnboard,
                     style:
                         TextStyle(fontSize: 17.0, fontWeight: FontWeight.w500),
                   ),
@@ -59,7 +60,7 @@ class SignupScreen extends StatelessWidget {
                     height: 20,
                   ),
                   const Text(
-                    'Let’s help you meet up your task',
+                    AppStrings.letHelpYouMeetUpYourTask,
                     style: TextStyle(
                         fontSize: 14.0,
                         color: AppColors.appColor,
@@ -69,10 +70,10 @@ class SignupScreen extends StatelessWidget {
                     height: 40,
                   ),
                   CommonTextField(
-                    hintText: 'Enter your Full Name',
+                    hintText: AppStrings.enterFullName,
                     validator: (value) {
                       if (value == null || value == "") {
-                        return 'Please Enter Full Name';
+                        return AppStrings.pleaseEnterFullName;
                       } else {
                         return null;
                       }
@@ -87,7 +88,7 @@ class SignupScreen extends StatelessWidget {
                     height: 20,
                   ),
                   CommonTextField(
-                    hintText: 'Enter your Email Address',
+                    hintText: AppStrings.enterYourEmailAddress,
                     onChanged: (p0) {
                       context
                           .read<SignupBloc>()
@@ -95,9 +96,9 @@ class SignupScreen extends StatelessWidget {
                     },
                     validator: (value) {
                       if (value == null || value == "") {
-                        return 'Please Enter Valid Email';
+                        return AppStrings.pleaseEnterEmail;
                       } else if (!isValidEmail(value)) {
-                        return 'Please Enter Valid Email';
+                        return AppStrings.pleaseEnterValidEmail;
                       } else {
                         return null;
                       }
@@ -107,10 +108,10 @@ class SignupScreen extends StatelessWidget {
                     height: 20,
                   ),
                   CommonTextField(
-                    hintText: 'Create a Password',
+                    hintText: AppStrings.createPassword,
                     validator: (value) {
                       if (value == null || value == "") {
-                        return 'Please Enter Password';
+                        return AppStrings.pleaseEnterPasswprd;
                       } else {
                         return null;
                       }
@@ -125,18 +126,15 @@ class SignupScreen extends StatelessWidget {
                     height: 20,
                   ),
                   CommonTextField(
-                    hintText: 'Confirm your Password',
+                    hintText: AppStrings.confirmPassword,
                     onChanged: (p0) {
                       context
                           .read<SignupBloc>()
                           .add(OnChangedEvent(map: {"confirmPassword": p0}));
                     },
                     validator: (value) {
-                      debugPrint(" value ${value}");
-                      debugPrint(
-                          " password text ${context.read<SignupBloc>().passwordController.text}");
                       if (value == null || value == "") {
-                        return 'Please Enter Confirm Password';
+                        return AppStrings.pleaseEnterConfirmPassowrd;
                       } else if (value ==
                           (context
                               .read<SignupBloc>()
@@ -144,7 +142,7 @@ class SignupScreen extends StatelessWidget {
                               .text)) {
                         return null;
                       } else {
-                        return 'Password dont match';
+                        return AppStrings.passwordDontMatch;
                       }
                     },
                   ),
@@ -165,7 +163,7 @@ class SignupScreen extends StatelessWidget {
                               .confirmPassController
                               .text));
                     },
-                    title: "Sign Up",
+                    title:AppStrings.signup,
                   ),
                   const SizedBox(
                     height: 20.0,
@@ -173,13 +171,13 @@ class SignupScreen extends StatelessWidget {
                   RichText(
                       text: TextSpan(children: [
                     TextSpan(
-                        text: "Already have an account ?", style: textStyle),
+                        text: AppStrings.alreadyHaveAnAccount, style: textStyle),
                     TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => context
                               .read<SignupBloc>()
                               .add(SignInClickedEvent()),
-                        text: " Sign In",
+                        text: AppStrings.signIn,
                         style: textStyle.copyWith(
                             color: AppColors.appColor,
                             fontWeight: FontWeight.bold)),

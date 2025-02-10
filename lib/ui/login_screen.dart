@@ -5,6 +5,7 @@ import 'package:to_do_app/bloc/login/login_bloc.dart';
 import 'package:to_do_app/bloc/signup/signup_bloc.dart';
 import 'package:to_do_app/constants/app_colors.dart';
 import 'package:to_do_app/constants/app_images.dart';
+import 'package:to_do_app/constants/app_strings.dart';
 import 'package:to_do_app/ui/add_todo_screen.dart';
 import 'package:to_do_app/ui/signup_screen.dart';
 import 'package:to_do_app/widgets/common_button.dart';
@@ -22,25 +23,24 @@ class LoginScreen extends StatelessWidget {
         listenWhen: (previous, current) => current is LoginActionState,
         buildWhen: (previous, current) => current is! LoginActionState,
         listener: (context, state) {
-          debugPrint("state is in login ${state.runtimeType}");
           if (state is ShowSnackBarActionState) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(state.messsage),
               backgroundColor: AppColors.appColor,
             ));
           } else if (state is NavigatToSignupActionState) {
-
-
             Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const SignupScreen(),
                 ));
-          } else if(state is NavigateToTodoScreenActionState){
+          } else if (state is NavigateToTodoScreenActionState) {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>  AddTodoScreen(email: state.email,),
+                  builder: (context) => AddTodoScreen(
+                    email: state.email,
+                  ),
                 ));
           }
         },
@@ -51,11 +51,10 @@ class LoginScreen extends StatelessWidget {
             child: Form(
               key: context.read<LoginBloc>().formKey,
               child: Column(
-                // crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Welcome Back!',
+                    AppStrings.welcomeBack,
                     style:
                         TextStyle(fontSize: 17.0, fontWeight: FontWeight.w600),
                   ),
@@ -69,7 +68,7 @@ class LoginScreen extends StatelessWidget {
                     height: 40,
                   ),
                   CommonTextField(
-                    hintText: 'Enter your Email Address',
+                    hintText: AppStrings.enterYourEmailAddress,
                     onChanged: (p0) {
                       context
                           .read<LoginBloc>()
@@ -77,9 +76,9 @@ class LoginScreen extends StatelessWidget {
                     },
                     validator: (value) {
                       if (value == null || value == "") {
-                        return 'Please Enter Valid Email';
+                        return AppStrings.pleaseEnterEmail;
                       } else if (!isValidEmail(value)) {
-                        return 'Please Enter Valid Email';
+                        return AppStrings.pleaseEnterValidEmail;
                       } else {
                         return null;
                       }
@@ -89,10 +88,10 @@ class LoginScreen extends StatelessWidget {
                     height: 20,
                   ),
                   CommonTextField(
-                    hintText: 'Enter Password',
+                    hintText: AppStrings.enterPassword,
                     validator: (value) {
                       if (value == null || value == "") {
-                        return 'Please Enter Password';
+                        return AppStrings.pleaseEnterPassword;
                       } else {
                         return null;
                       }
@@ -120,20 +119,21 @@ class LoginScreen extends StatelessWidget {
                                 .text,
                           ));
                     },
-                    title: "Sign In",
+                    title: AppStrings.signIn,
                   ),
                   const SizedBox(
                     height: 20.0,
                   ),
                   RichText(
                       text: TextSpan(children: [
-                    TextSpan(text: "Dont have an account ?", style: textStyle),
+                    TextSpan(
+                        text: AppStrings.dontHaveAnAccount, style: textStyle),
                     TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => context
                               .read<LoginBloc>()
                               .add(SignUpClickedEvent()),
-                        text: " Sign Up",
+                        text: AppStrings.signup,
                         style: textStyle.copyWith(
                             color: AppColors.appColor,
                             fontWeight: FontWeight.bold)),
