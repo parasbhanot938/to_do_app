@@ -129,6 +129,11 @@ To add or modify assets, update the `pubspec.yaml` file.
 Generate Hive type adapters:
 ```bash
 flutter pub run build_runner build
+
+## Disclaimer
+
+This project is built solely for practicing the BLoC (Business Logic Component) pattern in Flutter. It is a learning exercise and is **not** intended for production use. The Todo app is still under development and may have incomplete features or bugs.
+
 ```
 
 ---
