@@ -89,6 +89,21 @@ class LoginScreen extends StatelessWidget {
                   ),
                   CommonTextField(
                     hintText: AppStrings.enterPassword,
+                    isObscure: context.read<LoginBloc>().isObscure,
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          context.read<LoginBloc>().add(EyeIconClickedEvent());
+                        },
+                        icon: Icon(
+                          context.watch<LoginBloc>().state
+                                      is ShowEyeClosedState &&
+                                  !(context.watch<LoginBloc>().state
+                                          as ShowEyeClosedState)
+                                      .isObscure
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          size: 16.0,
+                        )),
                     validator: (value) {
                       if (value == null || value == "") {
                         return AppStrings.pleaseEnterPassword;

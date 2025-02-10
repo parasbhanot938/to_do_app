@@ -31,7 +31,9 @@ class SignupScreen extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>  AddTodoScreen(email: state.email,),
+                  builder: (context) => AddTodoScreen(
+                    email: state.email,
+                  ),
                 ));
           } else {
             Navigator.push(
@@ -108,7 +110,23 @@ class SignupScreen extends StatelessWidget {
                     height: 20,
                   ),
                   CommonTextField(
+                    isObscure: context.read<SignupBloc>().isPassObscure,
                     hintText: AppStrings.createPassword,
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          context
+                              .read<SignupBloc>()
+                              .add(PassFieldEyeIconEvent());
+                        },
+                        icon: Icon(
+                          context.watch<SignupBloc>().state is ShowPassState &&
+                                  !(context.watch<SignupBloc>().state
+                                          as ShowPassState)
+                                      .isPassObscure
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          size: 16.0,
+                        )),
                     validator: (value) {
                       if (value == null || value == "") {
                         return AppStrings.pleaseEnterPasswprd;
@@ -127,6 +145,23 @@ class SignupScreen extends StatelessWidget {
                   ),
                   CommonTextField(
                     hintText: AppStrings.confirmPassword,
+                    isObscure: context.read<SignupBloc>().isConfirmPassObscure,
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          context
+                              .read<SignupBloc>()
+                              .add(ConfirmFieldEyeIconEvent());
+                        },
+                        icon: Icon(
+                          context.watch<SignupBloc>().state
+                                      is ShowConfirmPassState &&
+                                  !(context.watch<SignupBloc>().state
+                                          as ShowConfirmPassState)
+                                      .isConfirmPassObscure
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          size: 16.0,
+                        )),
                     onChanged: (p0) {
                       context
                           .read<SignupBloc>()
@@ -163,7 +198,7 @@ class SignupScreen extends StatelessWidget {
                               .confirmPassController
                               .text));
                     },
-                    title:AppStrings.signup,
+                    title: AppStrings.signup,
                   ),
                   const SizedBox(
                     height: 20.0,
@@ -171,7 +206,8 @@ class SignupScreen extends StatelessWidget {
                   RichText(
                       text: TextSpan(children: [
                     TextSpan(
-                        text: AppStrings.alreadyHaveAnAccount, style: textStyle),
+                        text: AppStrings.alreadyHaveAnAccount,
+                        style: textStyle),
                     TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => context

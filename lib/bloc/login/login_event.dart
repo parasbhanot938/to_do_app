@@ -10,6 +10,10 @@ class OnChangeEvent extends LoginEvent {
   OnChangeEvent({required this.map});
 }
 
+class EyeIconClickedEvent extends LoginEvent{
+
+}
+
 class SignInButtonPressedEvent extends LoginEvent {
   String email;
   String password;

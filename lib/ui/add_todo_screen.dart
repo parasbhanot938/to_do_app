@@ -228,8 +228,8 @@ class AddTodoScreen extends StatelessWidget {
                                     ),
                                   ),
                               separatorBuilder: (context, index) => Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(horizontal: 15),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15),
                                     child: Divider(
                                       color: Colors.grey[300],
                                       // height: 10,

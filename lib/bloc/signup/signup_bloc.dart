@@ -21,12 +21,16 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   var confirmPassNode = FocusNode();
   final formKey = GlobalKey<FormState>();
 
+  bool isPassObscure=true;
+  bool isConfirmPassObscure=true;
   AuthRepoProvider authRepoProvider;
 
   SignupBloc({required this.authRepoProvider}) : super(SignupInitial()) {
     on<SignupButtonPressedEvent>(signupButtonPressedEvent);
     on<OnChangedEvent>(onChangedEvent);
     on<SignInClickedEvent>(signInClickedEvent);
+    on<PassFieldEyeIconEvent>(passFieldEyeIconEvent);
+    on<ConfirmFieldEyeIconEvent>(confirmFieldEyeIconEvent);
   }
 
   Future<void> signupButtonPressedEvent(
@@ -75,5 +79,18 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   FutureOr<void> signInClickedEvent(
       SignInClickedEvent event, Emitter<SignupState> emit) {
     emit(NavigateToSignInActionState());
+  }
+
+  FutureOr<void> passFieldEyeIconEvent(PassFieldEyeIconEvent event, Emitter<SignupState> emit) {
+  isPassObscure=!isPassObscure;
+
+  emit(ShowPassState(isPassObscure: isPassObscure));
+  }
+
+  FutureOr<void> confirmFieldEyeIconEvent(ConfirmFieldEyeIconEvent event, Emitter<SignupState> emit) {
+    isConfirmPassObscure=!isConfirmPassObscure;
+
+    emit(ShowConfirmPassState(isConfirmPassObscure: isConfirmPassObscure));
+
   }
 }

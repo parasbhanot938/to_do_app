@@ -18,12 +18,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   var fullNameNode = FocusNode();
   var emailNode = FocusNode();
   final formKey = GlobalKey<FormState>();
+
+  bool isObscure=true;
   AuthRepoProvider authRepoProvider;
 
   LoginBloc({required this.authRepoProvider}) : super(LoginInitial()) {
     on<OnChangeEvent>(onChangeEvent);
     on<SignUpClickedEvent>(signUpClickedEvent);
     on<SignInButtonPressedEvent>(signInButtonPressedEvent);
+    on<EyeIconClickedEvent>(eyeIconClickedEvent);
   }
 
   FutureOr<void> onChangeEvent(OnChangeEvent event, Emitter<LoginState> emit) {
@@ -58,5 +61,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       UserModel? userModel = await authRepoProvider.fetchUserData();
     }
+  }
+
+  FutureOr<void> eyeIconClickedEvent(EyeIconClickedEvent event, Emitter<LoginState> emit) {
+
+
+    isObscure=!isObscure;
+
+    emit(ShowEyeClosedState(isObscure: isObscure));
   }
 }

@@ -9,29 +9,35 @@ class CommonTextField extends StatelessWidget {
   final String? Function(String?)? onChanged;
   final TextEditingController? textEditingController;
   final FocusNode? focusNode;
+  final Widget? suffixIcon;
+  final bool? isObscure;
 
   CommonTextField(
       {super.key,
       this.validator,
       this.hintText,
+        this.suffixIcon,
       this.initialValue,
-      this.textEditingController, this.focusNode, this.onChanged});
+      this.textEditingController,
+      this.focusNode,
+        this.isObscure,
+      this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // height: 45.0,
       child: TextFormField(
         cursorColor: AppColors.appColor,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-onChanged: onChanged,
+        onChanged: onChanged,
         style: const TextStyle(fontSize: 14.0),
-// controller: context.read<TodoBloc>().addTodoController,
+        obscureText: isObscure??false,
         decoration: InputDecoration(
-            // errorStyle: TextStyle(height: 0.2 , fontSize: 12),
-            // errorMaxLines: 1,
+
+            suffixIcon: suffixIcon,
             fillColor: AppColors.whiteColor,
             filled: true,
+
             hintText: hintText,
             hintStyle: textStyle,
             contentPadding:
@@ -45,12 +51,12 @@ onChanged: onChanged,
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
                 borderSide: const BorderSide(color: Colors.transparent)),
-
             errorBorder:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
                 borderSide: const BorderSide(color: Colors.transparent))),
+
         validator: validator ??
             (value) {
               if (value == null || value.isEmpty) {

@@ -6,6 +6,8 @@ abstract class SignupEvent {}
 class FetchInitialEvent extends SignupEvent {}
 
 class SignInClickedEvent extends SignupEvent {}
+class PassFieldEyeIconEvent extends SignupEvent {}
+class ConfirmFieldEyeIconEvent extends SignupEvent {}
 
 class SignupButtonPressedEvent extends SignupEvent {
   String fullName;

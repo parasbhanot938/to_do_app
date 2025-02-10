@@ -7,6 +7,13 @@ class ShowSnackBarActionState extends LoginActionState{
   String messsage;
   ShowSnackBarActionState({required this.messsage});
 }
+
+class ShowEyeClosedState extends LoginState{
+  bool isObscure;
+  ShowEyeClosedState({required this.isObscure});
+
+}
+
 class LoginInitial extends LoginState {}
 class NavigatToSignupActionState extends LoginActionState{
 
